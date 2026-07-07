@@ -1,287 +1,189 @@
 # Altora Core
 
-Experimental LLM middleware for explicit runtime state, guardrails, and stateless AI workflows.
+Experimental LLM Orchestration & Safety Middleware
 
-> This repository is a public portfolio version.
-> The full implementation remains private.
+> Public portfolio version.
+> The complete implementation remains private.
 
 ---
 
 # Problem
 
-Modern LLM applications often depend on:
+Many LLM applications rely heavily on:
 
 - Long prompts
 - Hidden conversation history
 - Implicit runtime state
-- Model-specific behavior
-- Weak runtime guardrails
+- Weak intent routing
+- Prompt-only safety
+- Model-dependent behavior
 
-These systems become difficult to debug, replay, validate, and safely scale.
+These systems become difficult to inspect, validate, replay, and safely scale.
 
 ---
 
 # Solution
 
-Altora Core explores a different architecture.
+Altora Core introduces an explicit runtime pipeline.
 
-Instead of passing raw prompts directly to an LLM, the system converts user input into explicit runtime state before inference.
+Instead of passing raw prompts directly to a model, it converts user input into structured runtime state before any downstream reasoning occurs.
 
 Core principle:
 
-Intent → Structure → Exposure
-
-The runtime exposes structured metadata, preserves guardrails, and supports stateless workflows.
+**Intent → Structure → Exposure**
 
 ---
 
-# What Altora Core Is
-
-Altora Core is an experimental LLM middleware layer.
-
-It is designed for:
-
-- Intent routing
-- Runtime guardrails
-- Stateless AI workflows
-- Constraint-preserving state transfer
-- Local fallback
-- Bridge-state serialization
-- AI runtime orchestration
-
-It is **not** a chatbot.
-
----
-
-# Runtime Flow
+# System Flow
 
 ```mermaid
 flowchart TD
 
 A[Raw User Input]
+--> B[Reality Filter]
 
--->
+B --> C[Intent Router]
 
-B[Reality Filter]
+C --> D[Observer Protocol]
 
--->
+D --> E[Decode Policy]
 
-C[Intent Router]
+E --> F[Guardrail Layer]
 
--->
+F --> G[Bridge State Builder]
 
-D[Observer Protocol]
+G --> H[F-Array / State Packet]
 
--->
+H --> I[LLM]
 
-E[Decode Policy]
+H --> J[Local Fallback]
 
--->
+H --> K[Replay / Validation]
 
-F[Guardrail Layer]
-
--->
-
-G[Bridge State Builder]
-
--->
-
-H[F-Array]
-
--->
-
-I[LLM]
-
-H --> J[Replay]
-
-H --> K[Local Fallback]
-
-H --> L[UI / API]
+H --> L[API / UI]
 ```
 
 ---
 
-# Architecture
+# What This Project Demonstrates
 
-Altora Core transforms raw user input into structured runtime state before passing it to downstream systems.
-
-Pipeline:
-
-Raw User Input
-
-↓
-
-Reality Filter
-
-↓
-
-Intent Router
-
-↓
-
-Observer Protocol
-
-↓
-
-Decode Policy
-
-↓
-
-Guardrail Layer
-
-↓
-
-Bridge State Builder
-
-↓
-
-F-Array State Packet
-
-↓
-
-LLM / Local Fallback / Replay / UI
+- LLM middleware architecture
+- Intent routing
+- Runtime guardrails
+- Stateless AI workflows
+- Local fallback architecture
+- Constraint-preserving state transfer
+- Bridge state serialization
+- Human-in-the-loop boundaries
 
 ---
 
 # Technical Highlights
 
-## Runtime State
+## Explicit Runtime State
 
-The runtime exposes explicit structural metadata rather than relying on hidden context.
-
-Examples:
-
-- Intent
-- Runtime mode
-- Guardrails
-- Reality state
-- Observer state
-- Decode policy
-- Bridge packet
+Instead of relying on hidden conversational context, runtime information is represented as structured state.
 
 ---
 
 ## Intent Routing
 
-Classifies the user's primary intent before inference.
+User input is classified before downstream processing.
 
-Examples:
+Example categories:
 
-- explanatory
-- architectural
-- strategic
-- planning
-- decision
-- relational
+- Normal
+- Planning
+- Strategic
+- Decision
+- Relational
+- Architectural
 
 ---
 
 ## Reality Filter
 
-Classifies runtime context such as:
+The runtime evaluates contextual properties before reasoning.
+
+Examples:
 
 - controllability
 - observation asymmetry
 - trust weighting
 - emotional pressure
+- domain classification
 
 ---
 
 ## Observer Protocol
 
-Prevents unstable observations from becoming fixed conclusions.
+Prevents premature certainty when observations are incomplete or asymmetric.
 
 ---
 
 ## Decode Policy
 
-Delays premature interpretation.
+Delays interpretation collapse.
 
-The runtime preserves ambiguity when evidence is insufficient.
+The runtime preserves ambiguity until sufficient structural evidence exists.
 
 ---
 
-## Runtime Guardrails
+## Bridge State
 
-Guardrails exist as runtime state instead of natural-language prompts.
+Intermediate runtime representation passed between modules.
 
-Examples:
-
-- execution blocked
-- oracle blocked
-- escalation blocked
-- human review required
+This enables explicit state transfer across stateless workflows.
 
 ---
 
 ## F-Array
 
-F-Array is Altora Core's structural runtime encoding format.
+F-Array is a constraint-preserving structural state encoding.
 
-It is not prompt compression.
-
-It is constraint-preserving state serialization.
+Rather than compressing text, it compresses runtime state.
 
 Example:
 
-```
+```text
 I=nrm;T=T06;P=1;F=F13,F14;A=A02;R=R01;S=none;X=0;G=0;O=0
 ```
 
-Permission bits:
+Permission fields:
 
-- X = execution
+- X = execution permission
 - G = gate escalation
-- O = oracle authority
+- O = oracle / prediction authority
 
 ---
 
 ## Local Fallback
 
-Altora Core supports local-only execution.
+The runtime can continue producing structural metadata even when external models are unavailable.
 
 Example:
 
-```
+```yaml
 requested_useCore: true
-
 final_useCore: false
-
 route_reason: local_only_fallback
 ```
 
-The runtime remains observable even when no external model is used.
-
 ---
 
-# Current Status
+# Safety Boundary
 
-Current implementation includes:
+Altora Core is designed around explicit runtime boundaries.
 
-- Runtime pipeline
-- Intent routing
-- Reality filtering
-- Observer protocol
-- Decode policy
-- Runtime guardrails
-- Local fallback
-- Bridge-state packets
-- F-Array encoding
-- Sample runtime metadata
+The public architecture does not include:
 
----
+- hidden execution authority
+- automatic action permission
+- prediction authority
+- oracle behavior
+- unrestricted escalation
 
-# Future Work
-
-Planned work includes:
-
-- Public F-array dictionary
-- Bridge unpack endpoint
-- Bridge validation endpoint
-- Runtime benchmarks
-- Guard retention tests
-- SDK examples
-- OpenAPI specification
+Human review remains required for sensitive interpretation.
 
 ---
 
@@ -291,51 +193,60 @@ Included:
 
 - Architecture overview
 - Runtime concepts
-- Safety documentation
-- Module descriptions
-- Sample outputs
+- F-Array overview
+- Module documentation
+- Safety model
+- Sample bridge packets
 
 Not included:
 
-- Private implementation
+- Production implementation
 - Internal routing logic
 - Runtime cache
-- Experimental heuristics
-- Production source code
-- VPS configuration
-- API keys
+- Prompts
+- Private heuristics
+- Validation datasets
+- Infrastructure configuration
+
+---
+
+# Future Work
+
+Planned work includes:
+
+- Public F-Array dictionary
+- Bridge unpack specification
+- Guard retention benchmark
+- Execution leak testing
+- Oracle leak testing
+- SDK examples
+- OpenAPI examples
 
 ---
 
 # Tech Stack
 
 - Node.js
-- JavaScript
 - Express
+- JavaScript
 - REST API
 - Linux VPS
 - PM2
 
 ---
 
-# Why This Project Matters
+# Why This Project Is Different
 
-Most LLM applications focus on better prompts.
+Most LLM applications optimize prompts.
 
-Altora Core explores a different direction:
+Altora Core explores explicit runtime architecture.
 
-Make runtime state explicit.
-
-Represent guardrails structurally.
-
-Transfer constraints together with meaning.
-
-Support stateless and observable AI workflows.
+Its focus is not chatbot behavior, but structured state transfer, runtime safety, model fallback, and constraint-preserving orchestration.
 
 ---
 
 # License
 
-This repository is a public architecture portfolio.
+Portfolio version.
 
-The full implementation remains private.
+The production implementation remains private.
