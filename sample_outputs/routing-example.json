@@ -1,0 +1,15 @@
+﻿{
+"input": "Why is the dollar being bought?",
+"meta": {
+"intent_class": "explanatory",
+"router": {
+"requested_useCore": true,
+"final_useCore": false,
+"reason": "local_only_fallback",
+"score": 6,
+"fallback_class": "local_only",
+"model_error": null
+}
+},
+"runtime_note": "The input was routed into the core path, but local-only fallback mode was used."
+}

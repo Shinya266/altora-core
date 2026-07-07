@@ -1,0 +1,20 @@
+﻿{
+"name": "altora-core",
+"version": "0.1.0-portfolio",
+"description": "Experimental LLM orchestration and safety middleware for structured AI workflows.",
+"private": false,
+"type": "module",
+"keywords": [
+"llm",
+"ai-middleware",
+"llm-orchestration",
+"intent-routing",
+"state-serialization",
+"runtime-guardrails",
+"stateless-ai",
+"ai-runtime",
+"human-in-the-loop"
+],
+"author": "Altora",
+"license": "UNLICENSED"
+}

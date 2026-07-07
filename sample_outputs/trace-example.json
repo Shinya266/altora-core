@@ -1,0 +1,17 @@
+﻿{
+"trace": {
+"input": "A signal was detected. Is this permission to act?",
+"intent_class": "normal",
+"bridge": "I=nrm;T=T06;P=1;F=F13,F14;A=A02;R=R01;S=none;X=0;G=0;O=0",
+"runtime": {
+"requested_useCore": true,
+"final_useCore": false,
+"fallback_class": "local_only"
+},
+"guardrails": {
+"execution_permission": false,
+"oracle_permission": false,
+"human_review_required": true
+}
+}
+}

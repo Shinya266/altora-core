@@ -1,0 +1,15 @@
+﻿{
+"runtime": {
+"requested_useCore": true,
+"final_useCore": false,
+"route_reason": "local_only_fallback",
+"fallback_class": "local_only",
+"model_error": null
+},
+"state": {
+"world_board": "available",
+"bridge_state": "available",
+"f_array": "available",
+"external_model": "not_called"
+}
+}
